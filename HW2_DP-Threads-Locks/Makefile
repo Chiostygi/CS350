@@ -1,10 +1,15 @@
-CC := gcc
-LDFLAGS :=
-C_SOURCES := $(wildcard *.c)
-C_EXECUTABLE := $(C_SOURCES:.c=)
-LIB=-pthread
+CC=gcc
+CFLAGS=-I.
+DEPS = meal.h kitchen.c
+OBJ = kitchen.o 
 
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+kitchen: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
 make:
-		$(CC) $< $(C_SOURCES)  -o $(C_EXECUTABLE)
+	kitchen
 clean:
-	rm -f *.o $(C_EXECUTABLE)
+	rm -f *.o kitchen
+
