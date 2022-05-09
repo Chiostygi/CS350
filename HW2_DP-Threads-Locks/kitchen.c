@@ -127,10 +127,10 @@ int main() {
     pthread_t chef_thread;
     void *apprentice();
     int apprentice_ids[APPRENTICE_COUNT] = {0 ,1 ,2};
+    
     // Initialize Glove mutexes here
-    for(size_t i=0;i<GLOVE_COUNT;i++){
+    for(size_t i=0;i<GLOVE_COUNT;i++)
        pthread_mutex_init(&glove_mutex[i],NULL);
-    }
     // Initialize threads here
     for (size_t i = 0; i < APPRENTICE_COUNT; i++)
         pthread_create(&apprentice_threads[i],NULL,apprentice,&apprentice_ids[i]);
