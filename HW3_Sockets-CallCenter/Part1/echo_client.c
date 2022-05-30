@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
 	int sock;
 	struct sockaddr_in server;
-	char message[1000], server_reply[2000];
+	char message[2000], server_reply[2000];
 
 	// Create socket
 	sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -35,7 +35,8 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		printf("Enter message : ");
-		fgets(message, 1000, stdin);
+		fflush(stdout);
+		fgets(message, 2000, stdin);
 		if (!strcmp(message, "q\n"))
 		{
 			puts("Leaving server...");
