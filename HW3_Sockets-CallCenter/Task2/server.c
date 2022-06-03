@@ -53,12 +53,11 @@ int main(int argc, char *argv[])
         {
             puts("Server is busy, Connection terminated");
             send(new_socket, NOT_ACCEPTED, sizeof(NOT_ACCEPTED), 0);
-            // close(new_socket);
         }
         else
         {
             puts("Connection accepted");
-            if(client_counter < 2)
+            if (client_counter < 2)
                 send(new_socket, ACCEPTED, sizeof(ACCEPTED), 0);
             else
                 send(new_socket, IN_QUEUE, sizeof(IN_QUEUE), 0);
@@ -93,20 +92,20 @@ void *connection_handler(void *socket_desc)
     char client_protocol_code[2000] = "0";
     const char time_is_up[2000] = "Time is up";
     if (recv(sock, client_protocol_code, 2000, 0) < 0)
-	{
-		puts("recv failed");
-		return 0;
-	}
-    while(strcmp(client_protocol_code,ACCEPTED)){
-        if(client_counter <= 2){
-            strcpy(client_protocol_code,ACCEPTED);
-            send(sock,client_protocol_code,2000,0);
+    {
+        puts("recv failed");
+        return 0;
+    }
+    while (strcmp(client_protocol_code, ACCEPTED))
+    {
+        if (client_counter <= 2)
+        {
+            strcpy(client_protocol_code, ACCEPTED);
+            send(sock, client_protocol_code, 2000, 0);
             break;
         }
     }
     // Receive a message from client
-    time_t now = time(NULL);
-    time_t later = time(NULL);
     while ((read_size = recv(sock, client_message, 2000, 0)) > 0)
     {
         // Send the message back to client
@@ -114,9 +113,6 @@ void *connection_handler(void *socket_desc)
         memset(client_message, 0, sizeof(client_message));
     }
     client_counter--;
-/*     if(now - time(NULL) > 10) {
-        write(sock, time_is_up, strlen(time_is_up));
-    } */
     if (read_size == 0)
     {
         puts("Client disconnected");

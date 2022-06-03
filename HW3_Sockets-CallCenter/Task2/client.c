@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 	{
 		printf("Enter message: ");
 		fflush(stdout);
-		if (poll(&mypoll, 1, (10-(later-now))*1000))
+		if (poll(&mypoll, 1, (10 - (later - now)) * 1000))
 		{
 			fgets(message, 1000, stdin);
 		}
